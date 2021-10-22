@@ -1,16 +1,221 @@
-{% extends "base.html" %} {% block title %}Hauptseite{% endblock %}
+{% extends "base.html" %} {% block title %}Startseite{% endblock %}
 
 {% block content %}
 
-<head>
-    <h1 style=" background-color: gray;
-                text-align: center
-                ;">
-        Haarstdudio-MB
-    </h1>
-</head>
+<!DOCTYPE html>
+    <html>
+        <style>
+            body {
+              -webkit-font-smoothing: subpixel-antialiased;
+            background-color: rgb(243, 243, 243);
+            }
+            #warp {
+              width: 90%;
+              max-width: 800px;
+            	background: #595959;
+            	margin: 30px auto;
+            	overflow: hidden;
+            	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.75);
+            	-moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.75);
+            	-webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.75);
+            	-webkit-border-radius: 3px;
+            	-moz-border-radius: 3px;
+            	border-radius: 3px;
+            }
+            ul#gallery-container {
+            	position: relative;
+            	width: 100%;
+            	max-width: 800px;
+            	height: auto;
+            	padding: 52% 0 10px;
+            	margin: 0;
+            	text-align: center;
+            	display: block;
+            }
+            li.gallery-item {display: inline-block;width: 10%;cursor:pointer;*display:inline;}
+            img.gallery-preview{
+            	background: white;
+                margin: 0;
+                padding: 5% 5% 15%;
+                *padding: 2px 2px 10px;
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                max-height: 45px;
+                border-radius: 3px;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                overflow: hidden;
+                -webkit-transition: all 0.3s ease-out .2s;
+                -moz-transition: all 0.3s ease-out .2s;
+                -o-transition: all 0.3s ease-out .2s;
+                transition: all 0.3s ease-out .2s;
+            }
+            ul#gallery-container:hover li img.gallery-preview{opacity: 0.5;-webkit-filter:blur(2px) grayscale(0.5); }
+            ul#gallery-container:hover li:hover img.gallery-preview{opacity: 1;-webkit-filter:blur(0px) grayscale(0); }
 
-<body>
-    <img src="/home/Basti/Website/Website/website/img/1.jpg" >
-</body>
+            input.gallery-selector:checked ~ label.gallery-label>img.gallery-preview,
+            ul#gallery-container:hover li:hover img.gallery-preview:hover{
+            z-index: 5;
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.75);
+            -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.75);
+            -webkit-transform: scale(1.25);
+            -moz-transform: scale(1.25);
+            -o-transform: scale(1.25);
+            transform: scale(1.25);
+            
+            -webkit-transform-origin: bottom center;
+            -moz-transform-origin: bottom center;
+            -o-transform-origin: bottom center;
+            transform-origin: bottom center;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            }
+            ul#gallery-container:hover li:hover img.gallery-preview:hover {z-index: 20;}
+            input.gallery-selector:checked ~ label.gallery-label>img.gallery-preview{background: #333}
+            input.gallery-selector:checked ~ label.gallery-label:before{
+            content: " ";
+            position: relative;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid #333;
+            top: -30px;
+            }
+
+            img.gallery-fullsize {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: block;
+            width: 100%;
+            height: 85%;
+            z-index: -1;
+            opacity: 0;
+            -webkit-transform: scale(0.25);
+            -moz-transform: scale(0.25);
+            -o-transform: scale(0.25);
+            transform: scale(0.25);
+            -webkit-transform-origin: bottom center;
+            -moz-transform-origin: bottom center;
+            -o-transform-origin: bottom center;
+            transform-origin: bottom center;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            }
+            ul#gallery-container:hover li.gallery-item:active img.gallery-fullsize{
+            z-index: 50;
+            opacity: 0.75;
+            -webkit-filter:blur(10px) grayscale(1);
+            border-radius: 10%;
+            -webkit-border-radius: 10%;
+            -moz-border-radius: 10%;
+            -webkit-transform-origin: bottom center;
+            -moz-transform-origin: bottom center;
+            -o-transform-origin: bottom center;
+            transform-origin: bottom center;
+            -webkit-transition: all 0.3s ease-out .2s;
+            -moz-transition: all 0.3s ease-out .2s;
+            -o-transition: all 0.3s ease-out .2s;
+            transition: all 0.3s ease-out .2s;
+            }
+            ul#gallery-container:hover li:hover input.gallery-selector:checked ~ img.gallery-fullsize{z-index: 10;opacity: 1;border-radius: 0;-moz-border-radius: 0;-webkit-border-radius: 0;}
+
+            input.gallery-selector:checked ~ img.gallery-fullsize {
+            display: block;
+            opacity: 1;
+            z-index: 10;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -o-transform: scale(1);
+            transform: scale(1);
+            
+            -webkit-transform-origin: top center;
+            -moz-transform-origin: top center;
+            -o-transform-origin: top center;
+            transform-origin: top center;
+            -webkit-transition: all .2s ease-in .3s;
+            -moz-transition: all .2s ease-in .3s;
+            -o-transition: all .2s ease-in .3s;
+            transition: all .2s ease-in .3s;
+            }
+            input.gallery-selector {display: none;}
+            label.gallery-label {cursor: pointer;}
+
+        </style>
+
+        <body>
+            <h1 class="">
+                Haarstudio MB
+            </h1>
+            <div id="warp">
+            <ul id="gallery-container">
+              <li class="gallery-item">
+
+              	<input checked="checked" type="radio" name="gallery-list" class="gallery-selector" value="1.jpg" id="gallery-item1" />
+            		<img src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.6435-9/244596204_4614804568569915_1661482121971001958_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=6e5ad9&_nc_ohc=G3pmTtgUW_EAX-_187j&_nc_ht=scontent-frt3-1.xx&oh=1ee5af80bf5a100d56a42f7f26b2b7fd&oe=61969FA3" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item1" class="gallery-label">
+            			<img src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.6435-9/244596204_4614804568569915_1661482121971001958_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=6e5ad9&_nc_ohc=G3pmTtgUW_EAX-_187j&_nc_ht=scontent-frt3-1.xx&oh=1ee5af80bf5a100d56a42f7f26b2b7fd&oe=61969FA3" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            	<li class="gallery-item">
+
+            		<input type="radio" name="gallery-list" class="gallery-selector" value="2.jpg" id="gallery-item2" />
+            		<img src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.18169-9/11986993_1001545256562549_39930181017504340_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=973b4a&_nc_ohc=ls7ySBo7GdoAX9cpvME&_nc_ht=scontent-frt3-1.xx&oh=0d88301664033258711614e0ea89b2f8&oe=6199D207" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item2" class="gallery-label">
+            			<img src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.18169-9/11986993_1001545256562549_39930181017504340_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=973b4a&_nc_ohc=ls7ySBo7GdoAX9cpvME&_nc_ht=scontent-frt3-1.xx&oh=0d88301664033258711614e0ea89b2f8&oe=6199D207" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            	<li class="gallery-item">
+
+            		<input type="radio" name="gallery-list" class="gallery-selector" value="3.jpg" id="gallery-item3" />
+            		<img src="http://lorempixel.com/400/200/sports/2" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item3" class="gallery-label">
+            			<img src="http://lorempixel.com/76/50/sports/2" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            	<li class="gallery-item">
+
+            		<input type="radio" name="gallery-list" class="gallery-selector" value="4.jpg" id="gallery-item4" />
+            		<img src="http://lorempixel.com/400/200/sports/3" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item4" class="gallery-label">
+            			<img src="http://lorempixel.com/76/50/sports/3" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            	<li class="gallery-item">
+
+            		<input type="radio" name="gallery-list" class="gallery-selector" value="5.jpg" id="gallery-item5" />
+            		<img src="http://lorempixel.com/400/200/sports/4" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item5" class="gallery-label">
+            			<img src="http://lorempixel.com/76/50/sports/4" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            	<li class="gallery-item">
+
+            		<input type="radio" name="gallery-list" class="gallery-selector" value="6.jpg" id="gallery-item6" />
+            		<img src="http://lorempixel.com/400/200/sports/5" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item6" class="gallery-label">
+            			<img src="http://lorempixel.com/76/50/sports/5" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            	<li class="gallery-item">
+
+            		<input type="radio" name="gallery-list" class="gallery-selector" value="7.jpg" id="gallery-item7" />
+            		<img src="http://lorempixel.com/400/200/sports/6" class="gallery-fullsize"  alt="location bateau 135ch" />
+            		<label for="gallery-item7" class="gallery-label">
+            			<img src="http://lorempixel.com/76/50/sports/6" class="gallery-preview"  alt="location bateau 135ch"/>
+            		</label>
+            	</li>
+            </ul>
+            </div>
+        </body>
+    </html>
+
 {% endblock %}
